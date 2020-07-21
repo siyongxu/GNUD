@@ -40,7 +40,6 @@ def train(args, data, show_loss):
             print(len(user_news))
 
             # skip the last incomplete minibatch if its size < batch size
-            print(train_data.shape[0])
 
             while start + args.batch_size <= train_data.shape[0]:
 
@@ -97,31 +96,6 @@ def train(args, data, show_loss):
                   % (test_auc, test_f1))
             file.write("\n-----------\n"+str(step) + "\n" + str(train_auc)+ " " + str(train_f1)+ " " + str(eval_auc)+ " "+str(eval_f1) + " " + str(test_auc)+ " " + str(test_f1) + "\n")
         file.close()
-
-def test(args, data):
-    test_data = data[2]
-    train_user_news, train_news_user, test_user_news, test_news_user = data[3], data[4], data[5], data[6]
-
-    news_title, news_entity, news_group = data[7], data[8], data[9]
-    test_data_old,test_data_new = data[12],data[13]
-    model = Model(args, news_title, news_entity, news_group, len(train_user_news), len(news_title))
-
-    gpu_options = tf.GPUOptions()
-    config = tf.ConfigProto(gpu_options=gpu_options)
-    #config.gpu_options.per_process_gpu_memory_fraction = 0.4
-    config.gpu_options.allow_growth = True
-    with tf.Session(config=config) as sess:
-        saver = tf.train.Saver()
-        moudke_file = tf.train.latest_checkpoint(args.save_path)
-        saver.restore(sess, moudke_file)
-        test_auc, test_f1, test_p, test_r = ctr_eval(sess, model, test_data, args.batch_size, args, test_user_news, test_news_user)
-        # test_auc_1, test_f1_1,test_p1,test_r1 = ctr_eval(sess, model, test_data_old, args.batch_size, args, test_user_news, test_news_user,
-        #                              topic_news, len(news_title))
-        # test_auc_2, test_f1_2,test_p2,test_r2 = ctr_eval(sess, model, test_data_new, args.batch_size, args, test_user_news, test_news_user,
-        #                              topic_news, len(news_title))
-        print('test auc: %.4f  f1: %.4f  p: %.4f  r: %.4f' % (test_auc, test_f1,test_p,test_r))
-        # print('old test auc: %.4f  f1: %.4f  p: %.4f  r: %.4f' % (test_auc_1, test_f1_1,test_p1,test_r1))
-        # print('new test auc: %.4f  f1: %.4f  p: %.4f  r: %.4f' % (test_auc_2, test_f1_2,test_p2,test_r2))
 
 
 def get_feed_dict(model, data, start, end, dropout, user_news, news_user):
