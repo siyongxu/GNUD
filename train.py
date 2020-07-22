@@ -58,8 +58,8 @@ def train(args, data, show_loss):
                                                                                   sam_test_user_news,
                                                                                   sam_test_news_user)
                     print("----------\n\n")
-                    print('train auc: %.4f  f1: %.4f    eval auc: %.4f  f1: %.4f p: %.4f r=: %.4f'
-                          % (train_auc, train_f1, eval_auc, eval_f1, p1, r1))
+                    print('train auc: %.4f  f1: %.4f    eval auc: %.4f  f1: %.4f'
+                          % (train_auc, train_f1, eval_auc, eval_f1))
 
                 # if show_loss:
                     print(start, loss)
