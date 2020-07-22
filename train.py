@@ -80,7 +80,7 @@ def train(args, data, show_loss):
             saver.restore(sess, checkpt_file)
             # CTR evaluation
             max_test_user_news, max_test_news_user = test_random_neighbor(args, test_user_news, test_news_user, len(news_title))
-            train_auc, train_f1, pre = ctr_eval(sess, model, train_data[:2048], args.batch_size, args, max_user_news, max_news_user)
+            train_auc, train_f1, pre = ctr_eval(sess, model, train_data[:2048], args.batch_size, args, max_test_user_news, max_test_news_user)
 
             eval_auc, eval_f1, pre = ctr_eval(sess, model, eval_data, args.batch_size, args, max_test_user_news, max_test_news_user)
             print('epoch %d    train auc: %.4f  f1: %.4f    eval auc: %.4f  f1: %.4f'
