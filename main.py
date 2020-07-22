@@ -33,7 +33,7 @@ parser.add_argument('--filter_sizes', type=int, default=[2, 3], nargs='+',
                     help='list of filter sizes, e.g., --filter_sizes 2 3')
 parser.add_argument('--ncaps', type=int, default=8,
                     help='Maximum number of capsules per layer.')
-parser.add_argument('--dcaps', type=int, default=1, help='Decrease this number of capsules per layer.')
+parser.add_argument('--dcaps', type=int, default=0, help='Decrease this number of capsules per layer.')
 parser.add_argument('--nhidden', type=int, default=16,
                         help='Number of hidden units per capsule.')
 parser.add_argument('--routit', type=int, default=7,
