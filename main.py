@@ -15,7 +15,7 @@ parser.add_argument('--dataset', type=str, default='ten_week', help='which datas
 parser.add_argument('--title_len', type=int, default=10, help='the max length of title')
 parser.add_argument('--session_len', type=int, default=10, help='the max length of session')
 parser.add_argument('--aggregator', type=str, default='neighbor', help='which aggregator to use')
-parser.add_argument('--n_epochs', type=int, default=5, help='the number of epochs')
+parser.add_argument('--n_epochs', type=int, default=1, help='the number of epochs')
 parser.add_argument('--user_neighbor', type=int, default=30, help='the number of neighbors to be sampled')
 parser.add_argument('--news_neighbor', type=int, default=10, help='the number of neighbors to be sampled')
 parser.add_argument('--entity_neighbor', type=int, default=1, help='the number of neighbors to be sampled')
