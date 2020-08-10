@@ -175,8 +175,8 @@ class RoutingLayer():
             neighbor_z = tf.nn.relu(tf.matmul(tf.reshape(neighbor_vectors, [-1, self.inp_caps * self.cap_sz]),
                                               self.w2) + self.b2)
         else:  # 第一层不激活
-            self_z = tf.reshape(self_vectors, [-1, self.d])
-            neighbor_z = tf.reshape(neighbor_vectors, [-1, self.d])
+            self_z = tf.reshape(self.drop_out(tf.nn.relu(self_vectors)), [-1, self.d])
+            neighbor_z = tf.reshape(self.drop_out(tf.nn.relu(neighbor_vectors)), [-1, self.d])
         self_size, neighbor_size = self_vectors.shape, neighbor_vectors.shape
         self_n, neighbor_n = self_size[0] * self_size[1], neighbor_size[0]*neighbor_size[1]
         d, k, delta_d = self.d, self.k, self.d // self.k
