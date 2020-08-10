@@ -285,12 +285,12 @@ class Model(object):
                 print("news--hop", hop, news_vectors[hop], tf.reshape(news_vectors[hop+1], news_shape))
                 print("user--hop", hop, user_vectors[hop], tf.reshape(user_vectors[hop + 1], user_shape))
 
-                news_vectors[hop] = conv.drop_out(tf.nn.relu(news_vectors[hop]))
-                news_vectors[hop+1] = conv.drop_out(tf.nn.relu(news_vectors[hop+1]))
+                news_vectors[hop] = news_vectors[hop]
+                news_vectors[hop+1] = news_vectors[hop+1]
                 news_vector = conv.rout(self_vectors=news_vectors[hop],
                                 neighbor_vectors=tf.reshape(news_vectors[hop+1], news_shape), max_iter=self.routit)
-                user_vectors[hop] = conv.drop_out(tf.nn.relu(user_vectors[hop]))
-                user_vectors[hop+1] = conv.drop_out(tf.nn.relu(user_vectors[hop+1]))
+                user_vectors[hop] = user_vectors[hop]
+                user_vectors[hop+1] = user_vectors[hop+1]
                 user_vector = conv.rout(self_vectors=user_vectors[hop],
                                 neighbor_vectors=tf.reshape(user_vectors[hop + 1], user_shape), max_iter=self.routit)
 
