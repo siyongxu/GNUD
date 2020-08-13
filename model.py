@@ -146,11 +146,11 @@ class Model(object):
         with tf.variable_scope("user_Map"):
             stdv = 1. / tf.sqrt(tf.cast(self.dim, tf.float32))
             self.user_weights = tf.get_variable(shape=[self.user_dim, self.dim], initializer=tf.random_uniform_initializer(minval=-stdv, maxval=stdv), name='weights')
-            self.user_bias = tf.get_variable(shape=[self.dim], initializer=tf.zeros_initializer(), name='bias')
+            self.user_bias = tf.get_variable(shape=[self.dim], initializer=tf.random_uniform_initializer(minval=-stdv, maxval=stdv), name='bias')
         with tf.variable_scope("item_Map"):
             stdv = 1. / tf.sqrt(tf.cast(self.dim, tf.float32))
             self.item_weights = tf.get_variable(shape=[self.cnn_out_size, self.dim], initializer=tf.random_uniform_initializer(minval=-stdv, maxval=stdv), name='weights')
-            self.item_bias = tf.get_variable(shape=[self.dim], initializer=tf.zeros_initializer(), name='bias')
+            self.item_bias = tf.get_variable(shape=[self.dim], initializer=tf.random_uniform_initializer(minval=-stdv, maxval=stdv), name='bias')
 
         news_hop_vectors = tf.reshape(self.convolution(news[0]), [-1, self.cnn_out_size])
         news_hop_vectors = tf.matmul(news_hop_vectors, self.item_weights) + self.item_bias
@@ -285,12 +285,10 @@ class Model(object):
                 print("news--hop", hop, news_vectors[hop], tf.reshape(news_vectors[hop+1], news_shape))
                 print("user--hop", hop, user_vectors[hop], tf.reshape(user_vectors[hop + 1], user_shape))
 
-                news_vectors[hop] = news_vectors[hop]
-                news_vectors[hop+1] = news_vectors[hop+1]
+                
                 news_vector = conv.rout(self_vectors=news_vectors[hop],
                                 neighbor_vectors=tf.reshape(news_vectors[hop+1], news_shape), max_iter=self.routit)
-                user_vectors[hop] = user_vectors[hop]
-                user_vectors[hop+1] = user_vectors[hop+1]
+                
                 user_vector = conv.rout(self_vectors=user_vectors[hop],
                                 neighbor_vectors=tf.reshape(user_vectors[hop + 1], user_shape), max_iter=self.routit)
 
