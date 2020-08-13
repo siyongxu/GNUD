@@ -154,12 +154,12 @@ class RoutingLayer():
                 with tf.variable_scope('Linear-1'):
                     stdv = 1. / tf.sqrt(tf.cast(self.d, tf.float32))
                     self.w1 = tf.get_variable(shape=[inp_caps * cap_sz,  cap_sz * out_caps], initializer=tf.random_uniform_initializer(minval=-stdv, maxval=stdv), name='weights')
-                    self.b1 = tf.get_variable(shape=[cap_sz * out_caps], initializer=tf.random_uniform_initializer(minval=-stdv, maxval=stdv), name='bias')
+                    self.b1 = tf.get_variable(shape=[cap_sz * out_caps], initializer=tf.zeros_initializer(), name='bias')
             if layers == 2:
                 with tf.variable_scope('Linear-2'):
                     stdv = 1. / tf.sqrt(tf.cast(self.d, tf.float32))
                     self.w2 = tf.get_variable(shape=[inp_caps * cap_sz, cap_sz * out_caps],initializer=tf.random_uniform_initializer(minval=-stdv, maxval=stdv),name='weights')
-                    self.b2 = tf.get_variable(shape=[cap_sz * out_caps],initializer=tf.random_uniform_initializer(minval=-stdv, maxval=stdv),name='bias')
+                    self.b2 = tf.get_variable(shape=[cap_sz * out_caps],initializer=tf.zeros_initializer(),name='bias')
 
     def drop_out(self, x):
         return tf.nn.dropout(x, keep_prob=1-self.drop)
