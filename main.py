@@ -50,11 +50,7 @@ show_time = False
 args = parser.parse_args()
 # data = load_data(args)
 data = load_new_data(args)
-if args.test != 1:
-    for i in range(4):
-        train(args, data, show_loss)
-else:
-    test(args, data)
+train(args, data, show_loss)
 
 #if show_time:
 #    print('time used: %d s' % (time() - t))
