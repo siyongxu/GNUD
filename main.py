@@ -2,7 +2,7 @@ import argparse
 import numpy as np
 import time
 from data_loader import load_data, load_new_data
-from train import train, test
+from train import train
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '0'
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
